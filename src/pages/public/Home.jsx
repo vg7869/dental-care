@@ -16,12 +16,12 @@ const Home = () => {
 
       {/* Hero Section */}
       <section className="bg-blue-600 text-white">
-        <div className="mx-auto max-w-7xl px-6 py-20">
+        <div className="mx-auto max-w-7xl px-6 py-12 md:py-20">
           
-          {/* Grid setup for Text on left and Image on right */}
-          <div className="grid items-center gap-12 md:grid-cols-2">
+          {/* Grid setup: Mobile pe ek ke niche ek (flex/grid), Laptop pe 2 columns */}
+          <div className="grid items-center gap-8 md:grid-cols-2 md:gap-12">
             
-            {/* Left Side: Text and Buttons */}
+            {/* Left Side (Mobile pe upar): Text and Buttons */}
             <div className="max-w-2xl">
               <p className="mb-4 text-sm font-semibold uppercase tracking-wider text-blue-100">
                 Professional Dental Care
@@ -57,12 +57,12 @@ const Home = () => {
               </div>
             </div>
 
-            {/* Right Side: Clinic Image */}
-            <div className="hidden md:flex justify-center">
+            {/* Right Side / Bottom: Clinic Image (Ab mobile aur laptop dono pe dikhegi) */}
+            <div className="flex justify-center mt-6 md:mt-0">
               <img 
                 src={personal} 
                 alt="Our Dental Clinic" 
-                className="h-80 w-full object-cover rounded-2xl shadow-xl border-4 border-white/20"
+                className="h-64 sm:h-80 w-full object-cover rounded-2xl shadow-xl border-4 border-white/20"
               />
             </div>
 
