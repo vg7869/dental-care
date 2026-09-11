@@ -107,7 +107,7 @@ const Dashboard = () => {
         </div>
 
         {/* Profile Image - Top Right */}
-        <div className="flex-shrink-0">
+        <div className="shrink-0">
           <img 
             src={kpImg} 
             alt="Dr. Krishna Pal Gaur" 

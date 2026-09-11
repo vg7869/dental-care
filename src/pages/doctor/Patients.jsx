@@ -1,6 +1,5 @@
-
 import React, { useState } from 'react'
-import { NavLink } from 'react-router'
+import { NavLink } from 'react-router-dom'
 import { useClinic } from '../../context/ClinicContext'
 
 const Patients = () => {
@@ -35,13 +34,13 @@ const Patients = () => {
   }
 
   return (
-    <div className="p-8">
+    <div className="min-h-screen bg-slate-50 p-4 md:p-8">
 
       {/* Header */}
-      <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+      <div className="mb-6 md:mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
 
         <div>
-          <h1 className="text-3xl font-bold text-slate-800">
+          <h1 className="text-2xl md:text-3xl font-bold text-slate-800">
             Patients
           </h1>
 
@@ -52,7 +51,7 @@ const Patients = () => {
 
         <NavLink
           to="/doctor/patients/add"
-          className="rounded-lg bg-blue-600 px-5 py-3 text-center font-medium text-white transition hover:bg-blue-700"
+          className="rounded-lg bg-blue-600 px-4 md:px-5 py-2.5 md:py-3 text-center text-sm md:text-base font-medium text-white transition hover:bg-blue-700 shadow-sm"
         >
           + Add Patient
         </NavLink>
@@ -60,24 +59,24 @@ const Patients = () => {
       </div>
 
       {/* Statistics */}
-      <div className="mb-6 grid gap-6 sm:grid-cols-2">
+      <div className="mb-6 grid gap-4 sm:grid-cols-2">
 
-        <div className="rounded-xl bg-white p-6 shadow-sm">
+        <div className="rounded-xl bg-white p-5 md:p-6 shadow-sm border border-slate-100">
           <p className="text-sm font-medium text-slate-500">
             Total Patients
           </p>
 
-          <p className="mt-2 text-3xl font-bold text-blue-600">
+          <p className="mt-2 text-2xl md:text-3xl font-bold text-blue-600">
             {patients.length}
           </p>
         </div>
 
-        <div className="rounded-xl bg-white p-6 shadow-sm">
+        <div className="rounded-xl bg-white p-5 md:p-6 shadow-sm border border-slate-100">
           <p className="text-sm font-medium text-slate-500">
             Search Results
           </p>
 
-          <p className="mt-2 text-3xl font-bold text-slate-800">
+          <p className="mt-2 text-2xl md:text-3xl font-bold text-slate-800">
             {filteredPatients.length}
           </p>
         </div>
@@ -85,7 +84,7 @@ const Patients = () => {
       </div>
 
       {/* Search */}
-      <div className="mb-6 rounded-xl bg-white p-6 shadow-sm">
+      <div className="mb-6 rounded-xl bg-white p-4 md:p-6 shadow-sm border border-slate-100">
 
         <label className="mb-2 block text-sm font-medium text-slate-700">
           Search Patient
@@ -98,139 +97,82 @@ const Patients = () => {
             setSearch(event.target.value)
           }
           placeholder="Search by patient name or mobile..."
-          className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+          className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
         />
 
       </div>
 
       {/* Patient Table */}
-      <div className="overflow-hidden rounded-xl bg-white shadow-sm">
+      <div className="overflow-hidden rounded-xl bg-white shadow-sm border border-slate-100">
 
         <div className="overflow-x-auto">
           <table className="w-full min-w-[900px] text-left">
 
-            <thead className="bg-slate-50">
+            <thead className="bg-slate-100">
               <tr>
-
-                <th className="px-6 py-4 text-sm font-semibold text-slate-700">
-                  Patient
-                </th>
-
-                <th className="px-6 py-4 text-sm font-semibold text-slate-700">
-                  Mobile
-                </th>
-
-                <th className="px-6 py-4 text-sm font-semibold text-slate-700">
-                  Problem
-                </th>
-
-                <th className="px-6 py-4 text-sm font-semibold text-slate-700">
-                  Visit Date
-                </th>
-
-                <th className="px-6 py-4 text-sm font-semibold text-slate-700">
-                  Treatment
-                </th>
-
-                <th className="px-6 py-4 text-sm font-semibold text-slate-700">
-                  Action
-                </th>
-
+                <th className="px-4 py-3 md:px-6 md:py-4 text-sm font-semibold text-slate-700">Patient</th>
+                <th className="px-4 py-3 md:px-6 md:py-4 text-sm font-semibold text-slate-700">Mobile</th>
+                <th className="px-4 py-3 md:px-6 md:py-4 text-sm font-semibold text-slate-700">Problem</th>
+                <th className="px-4 py-3 md:px-6 md:py-4 text-sm font-semibold text-slate-700">Visit Date</th>
+                <th className="px-4 py-3 md:px-6 md:py-4 text-sm font-semibold text-slate-700">Treatment</th>
+                <th className="px-4 py-3 md:px-6 md:py-4 text-sm font-semibold text-slate-700">Action</th>
               </tr>
             </thead>
 
-            <tbody className="divide-y divide-slate-100">
-
-              {filteredPatients.map(
-                (patient) => (
-                  <tr
-                    key={patient.id}
-                    className="transition hover:bg-slate-50"
-                  >
-
-                    {/* Patient */}
-                    <td className="px-6 py-4">
-
-                      <div className="flex items-center gap-3">
-
-                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 font-semibold text-blue-600">
-                          {patient.name
-                            .charAt(0)
-                            .toUpperCase()}
-                        </div>
-
-                        <div>
-
-                          <p className="font-medium text-slate-800">
-                            {patient.name}
-                          </p>
-
-                          <p className="text-xs text-slate-400">
-                            ID: {patient.id}
-                          </p>
-
-                        </div>
-
+            <tbody className="divide-y divide-slate-100 bg-white">
+              {filteredPatients.map((patient) => (
+                <tr key={patient.id} className="transition hover:bg-slate-50">
+                  <td className="px-4 py-3 md:px-6 md:py-4">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-blue-100 font-semibold text-blue-600">
+                        {patient.name.charAt(0).toUpperCase()}
                       </div>
-
-                    </td>
-
-                    {/* Mobile */}
-                    <td className="px-6 py-4 text-slate-600">
-                      {patient.mobile}
-                    </td>
-
-                    {/* Problem */}
-                    <td className="px-6 py-4 text-slate-600">
-                      {patient.problem}
-                    </td>
-
-                    {/* Visit Date */}
-                    <td className="px-6 py-4 text-slate-600">
-                      {patient.visitDate}
-                    </td>
-
-                    {/* Treatment */}
-                    <td className="px-6 py-4 text-slate-600">
-                      {patient.treatment}
-                    </td>
-
-                    {/* Actions */}
-                    <td className="px-6 py-4">
-
-                      <div className="flex items-center gap-2">
-
-                        <NavLink
-                          to={`/doctor/patients/${patient.id}`}
-                          className="rounded-md bg-blue-50 px-3 py-2 text-sm font-medium text-blue-600 transition hover:bg-blue-100"
-                        >
-                          View
-                        </NavLink>
-
-                        <NavLink
-                          to={`/doctor/patients/${patient.id}/edit`}
-                          className="rounded-md bg-yellow-50 px-3 py-2 text-sm font-medium text-yellow-700 transition hover:bg-yellow-100"
-                        >
-                          Edit
-                        </NavLink>
-
-                        <button
-                          onClick={() =>
-                            handleDelete(patient.id)
-                          }
-                          className="rounded-md bg-red-50 px-3 py-2 text-sm font-medium text-red-600 transition hover:bg-red-100"
-                        >
-                          Delete
-                        </button>
-
+                      <div>
+                        <p className="font-medium text-slate-800">
+                          {patient.name}
+                        </p>
+                        <p className="text-xs text-slate-400">
+                          ID: {patient.id}
+                        </p>
                       </div>
-
-                    </td>
-
-                  </tr>
-                )
-              )}
-
+                    </div>
+                  </td>
+                  <td className="px-4 py-3 md:px-6 md:py-4 text-sm text-slate-600">
+                    {patient.mobile}
+                  </td>
+                  <td className="px-4 py-3 md:px-6 md:py-4 text-sm text-slate-600">
+                    {patient.problem}
+                  </td>
+                  <td className="px-4 py-3 md:px-6 md:py-4 text-sm text-slate-600">
+                    {patient.visitDate}
+                  </td>
+                  <td className="px-4 py-3 md:px-6 md:py-4 text-sm text-slate-600">
+                    {patient.treatment}
+                  </td>
+                  <td className="px-4 py-3 md:px-6 md:py-4">
+                    <div className="flex items-center gap-2">
+                      <NavLink
+                        to={`/doctor/patients/${patient.id}`}
+                        className="rounded-md bg-blue-50 px-3 py-1.5 text-xs md:text-sm font-medium text-blue-600 transition hover:bg-blue-100"
+                      >
+                        View
+                      </NavLink>
+                      <NavLink
+                        to={`/doctor/patients/${patient.id}/edit`}
+                        className="rounded-md bg-yellow-50 px-3 py-1.5 text-xs md:text-sm font-medium text-yellow-700 transition hover:bg-yellow-100"
+                      >
+                        Edit
+                      </NavLink>
+                      <button
+                        onClick={() => handleDelete(patient.id)}
+                        className="rounded-md bg-red-50 px-3 py-1.5 text-xs md:text-sm font-medium text-red-600 transition hover:bg-red-100"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
             </tbody>
 
           </table>
@@ -238,20 +180,14 @@ const Patients = () => {
 
         {/* Empty State */}
         {filteredPatients.length === 0 && (
-          <div className="p-10 text-center">
-
-            <div className="text-4xl">
-              🦷
-            </div>
-
+          <div className="p-10 text-center bg-white">
+            <div className="text-4xl">🦷</div>
             <h2 className="mt-4 text-lg font-semibold text-slate-700">
               No patients found
             </h2>
-
             <p className="mt-2 text-sm text-slate-500">
               Try searching with a different name or mobile number.
             </p>
-
             {search && (
               <button
                 onClick={() => setSearch('')}
@@ -260,7 +196,6 @@ const Patients = () => {
                 Clear Search
               </button>
             )}
-
           </div>
         )}
 

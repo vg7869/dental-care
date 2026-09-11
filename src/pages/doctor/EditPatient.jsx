@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { NavLink, useNavigate, useParams } from 'react-router'
+import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import { usePatients } from '../../context/PatientContext'
 
 const EditPatient = () => {
@@ -44,21 +44,21 @@ const EditPatient = () => {
 
   if (!patient) {
     return (
-      <div className="p-8">
+      <div className="p-4 md:p-8">
 
-        <div className="rounded-xl bg-white p-8 text-center shadow-sm">
+        <div className="rounded-xl bg-white p-6 md:p-8 text-center shadow-sm">
 
-          <h1 className="text-2xl font-bold text-slate-800">
+          <h1 className="text-xl md:text-2xl font-bold text-slate-800">
             Patient Not Found
           </h1>
 
-          <p className="mt-2 text-slate-500">
+          <p className="mt-2 text-sm md:text-base text-slate-500">
             The patient record does not exist.
           </p>
 
           <NavLink
             to="/doctor/patients"
-            className="mt-6 inline-block rounded-lg bg-blue-600 px-5 py-3 font-medium text-white hover:bg-blue-700"
+            className="mt-6 inline-block rounded-lg bg-blue-600 px-5 py-3 text-sm font-medium text-white hover:bg-blue-700"
           >
             Back to Patients
           </NavLink>
@@ -161,12 +161,12 @@ const EditPatient = () => {
   }
 
   return (
-    <div className="p-8">
+    <div className="p-4 md:p-8">
 
       {/* Header */}
-      <div className="mb-8">
+      <div className="mb-6 md:mb-8">
 
-        <h1 className="text-3xl font-bold text-slate-800">
+        <h1 className="text-2xl md:text-3xl font-bold text-slate-800">
           Edit Patient
         </h1>
 
@@ -179,10 +179,10 @@ const EditPatient = () => {
       {/* Form */}
       <form
         onSubmit={handleSubmit}
-        className="max-w-4xl rounded-xl bg-white p-8 shadow-sm"
+        className="w-full max-w-4xl rounded-xl bg-white p-5 md:p-8 shadow-sm"
       >
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-4 md:gap-6 md:grid-cols-2">
 
           {/* Patient Name */}
           <div>
@@ -197,7 +197,7 @@ const EditPatient = () => {
               value={formData.name}
               onChange={handleChange}
               placeholder="Enter patient name"
-              className={`w-full rounded-lg border px-4 py-3 outline-none transition focus:ring-2 ${
+              className={`w-full rounded-lg border px-4 py-3 text-sm outline-none transition focus:ring-2 ${
                 errors.name
                   ? 'border-red-400 focus:border-red-500 focus:ring-red-100'
                   : 'border-slate-300 focus:border-blue-500 focus:ring-blue-100'
@@ -226,7 +226,7 @@ const EditPatient = () => {
               onChange={handleChange}
               placeholder="Enter 10-digit mobile number"
               maxLength="10"
-              className={`w-full rounded-lg border px-4 py-3 outline-none transition focus:ring-2 ${
+              className={`w-full rounded-lg border px-4 py-3 text-sm outline-none transition focus:ring-2 ${
                 errors.mobile
                   ? 'border-red-400 focus:border-red-500 focus:ring-red-100'
                   : 'border-slate-300 focus:border-blue-500 focus:ring-blue-100'
@@ -254,7 +254,7 @@ const EditPatient = () => {
               value={formData.problem}
               onChange={handleChange}
               placeholder="Example: Tooth Pain"
-              className={`w-full rounded-lg border px-4 py-3 outline-none transition focus:ring-2 ${
+              className={`w-full rounded-lg border px-4 py-3 text-sm outline-none transition focus:ring-2 ${
                 errors.problem
                   ? 'border-red-400 focus:border-red-500 focus:ring-red-100'
                   : 'border-slate-300 focus:border-blue-500 focus:ring-blue-100'
@@ -282,7 +282,7 @@ const EditPatient = () => {
               value={formData.visitDate}
               max={today}
               onChange={handleChange}
-              className={`w-full rounded-lg border px-4 py-3 outline-none transition focus:ring-2 ${
+              className={`w-full rounded-lg border px-4 py-3 text-sm outline-none transition focus:ring-2 ${
                 errors.visitDate
                   ? 'border-red-400 focus:border-red-500 focus:ring-red-100'
                   : 'border-slate-300 focus:border-blue-500 focus:ring-blue-100'
@@ -310,7 +310,7 @@ const EditPatient = () => {
               value={formData.treatment}
               onChange={handleChange}
               placeholder="Example: Dental Filling"
-              className={`w-full rounded-lg border px-4 py-3 outline-none transition focus:ring-2 ${
+              className={`w-full rounded-lg border px-4 py-3 text-sm outline-none transition focus:ring-2 ${
                 errors.treatment
                   ? 'border-red-400 focus:border-red-500 focus:ring-red-100'
                   : 'border-slate-300 focus:border-blue-500 focus:ring-blue-100'
@@ -338,7 +338,7 @@ const EditPatient = () => {
               value={formData.nextVisit}
               min={today}
               onChange={handleChange}
-              className={`w-full rounded-lg border px-4 py-3 outline-none transition focus:ring-2 ${
+              className={`w-full rounded-lg border px-4 py-3 text-sm outline-none transition focus:ring-2 ${
                 errors.nextVisit
                   ? 'border-red-400 focus:border-red-500 focus:ring-red-100'
                   : 'border-slate-300 focus:border-blue-500 focus:ring-blue-100'
@@ -366,7 +366,7 @@ const EditPatient = () => {
               onChange={handleChange}
               rows="4"
               placeholder="Enter additional notes"
-              className="w-full resize-none rounded-lg border border-slate-300 px-4 py-3 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+              className="w-full resize-none rounded-lg border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
             />
 
           </div>
@@ -374,18 +374,18 @@ const EditPatient = () => {
         </div>
 
         {/* Buttons */}
-        <div className="mt-8 flex gap-4">
+        <div className="mt-6 md:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4">
 
           <button
             type="submit"
-            className="rounded-lg bg-blue-600 px-6 py-3 font-medium text-white transition hover:bg-blue-700"
+            className="w-full sm:w-auto rounded-lg bg-blue-600 px-6 py-3 font-medium text-white transition hover:bg-blue-700 text-center text-sm"
           >
             Update Patient
           </button>
 
           <NavLink
             to={`/doctor/patients/${patient.id}`}
-            className="rounded-lg bg-slate-100 px-6 py-3 font-medium text-slate-700 transition hover:bg-slate-200"
+            className="w-full sm:w-auto rounded-lg bg-slate-100 px-6 py-3 font-medium text-slate-700 transition hover:bg-slate-200 text-center text-sm"
           >
             Cancel
           </NavLink>

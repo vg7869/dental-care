@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { NavLink, useLocation, useNavigate } from 'react-router'
+import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { usePatients } from '../../context/PatientContext'
 import { useAppointments } from '../../context/AppointmentContext'
 
@@ -123,12 +123,12 @@ const AddPatient = () => {
   }
 
   return (
-    <div className="p-8">
+    <div className="p-4 md:p-8">
 
       {/* Header */}
-      <div className="mb-8">
+      <div className="mb-6 md:mb-8">
 
-        <h1 className="text-3xl font-bold text-slate-800">
+        <h1 className="text-2xl md:text-3xl font-bold text-slate-800">
           Add Patient
         </h1>
 
@@ -140,13 +140,13 @@ const AddPatient = () => {
 
       {/* Appointment Information */}
       {appointment && (
-        <div className="mb-6 rounded-xl border border-blue-100 bg-blue-50 p-5">
+        <div className="mb-6 rounded-xl border border-blue-100 bg-blue-50 p-4 md:p-5">
 
           <p className="text-sm font-semibold text-blue-700">
             Creating patient from appointment
           </p>
 
-          <div className="mt-3 grid gap-3 text-sm md:grid-cols-3">
+          <div className="mt-3 grid gap-2 md:gap-3 text-sm md:grid-cols-3">
 
             <p className="text-slate-600">
               Patient:{' '}
@@ -177,10 +177,10 @@ const AddPatient = () => {
       {/* Form */}
       <form
         onSubmit={handleSubmit}
-        className="max-w-4xl rounded-xl bg-white p-8 shadow-sm"
+        className="w-full max-w-4xl rounded-xl bg-white p-5 md:p-8 shadow-sm"
       >
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-4 md:gap-6 md:grid-cols-2">
 
           {/* Patient Name */}
           <div>
@@ -195,7 +195,7 @@ const AddPatient = () => {
               value={formData.name}
               onChange={handleChange}
               placeholder="Enter patient name"
-              className={`w-full rounded-lg border px-4 py-3 outline-none transition focus:ring-2 ${
+              className={`w-full rounded-l border px-4 py-3 text-sm outline-none transition focus:ring-2 ${
                 errors.name
                   ? 'border-red-400 focus:border-red-500 focus:ring-red-100'
                   : 'border-slate-300 focus:border-blue-500 focus:ring-blue-100'
@@ -224,7 +224,7 @@ const AddPatient = () => {
               onChange={handleChange}
               placeholder="Enter 10-digit mobile number"
               maxLength="10"
-              className={`w-full rounded-lg border px-4 py-3 outline-none transition focus:ring-2 ${
+              className={`w-full rounded-lg border px-4 py-3 text-sm outline-none transition focus:ring-2 ${
                 errors.mobile
                   ? 'border-red-400 focus:border-red-500 focus:ring-red-100'
                   : 'border-slate-300 focus:border-blue-500 focus:ring-blue-100'
@@ -252,7 +252,7 @@ const AddPatient = () => {
               value={formData.problem}
               onChange={handleChange}
               placeholder="Example: Tooth Pain"
-              className={`w-full rounded-lg border px-4 py-3 outline-none transition focus:ring-2 ${
+              className={`w-full rounded-lg border px-4 py-3 text-sm outline-none transition focus:ring-2 ${
                 errors.problem
                   ? 'border-red-400 focus:border-red-500 focus:ring-red-100'
                   : 'border-slate-300 focus:border-blue-500 focus:ring-blue-100'
@@ -281,7 +281,7 @@ const AddPatient = () => {
               min={appointment ? appointment.date : undefined}
               max={!appointment ? today : undefined}
               onChange={handleChange}
-              className={`w-full rounded-lg border px-4 py-3 outline-none transition focus:ring-2 ${
+              className={`w-full rounded-lg border px-4 py-3 text-sm outline-none transition focus:ring-2 ${
                 errors.visitDate
                   ? 'border-red-400 focus:border-red-500 focus:ring-red-100'
                   : 'border-slate-300 focus:border-blue-500 focus:ring-blue-100'
@@ -309,7 +309,7 @@ const AddPatient = () => {
               value={formData.treatment}
               onChange={handleChange}
               placeholder="Example: Dental Filling"
-              className={`w-full rounded-lg border px-4 py-3 outline-none transition focus:ring-2 ${
+              className={`w-full rounded-lg border px-4 py-3 text-sm outline-none transition focus:ring-2 ${
                 errors.treatment
                   ? 'border-red-400 focus:border-red-500 focus:ring-red-100'
                   : 'border-slate-300 focus:border-blue-500 focus:ring-blue-100'
@@ -337,7 +337,7 @@ const AddPatient = () => {
               value={formData.nextVisit}
               min={today}
               onChange={handleChange}
-              className={`w-full rounded-lg border px-4 py-3 outline-none transition focus:ring-2 ${
+              className={`w-full rounded-lg border px-4 py-3 text-sm outline-none transition focus:ring-2 ${
                 errors.nextVisit
                   ? 'border-red-400 focus:border-red-500 focus:ring-red-100'
                   : 'border-slate-300 focus:border-blue-500 focus:ring-blue-100'
@@ -365,7 +365,7 @@ const AddPatient = () => {
               onChange={handleChange}
               placeholder="Enter additional notes"
               rows="4"
-              className="w-full resize-none rounded-lg border border-slate-300 px-4 py-3 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+              className="w-full resize-none rounded-lg border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
             />
 
           </div>
@@ -373,18 +373,18 @@ const AddPatient = () => {
         </div>
 
         {/* Buttons */}
-        <div className="mt-8 flex gap-4">
+        <div className="mt-6 md:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4">
 
           <button
             type="submit"
-            className="rounded-lg bg-blue-600 px-6 py-3 font-medium text-white transition hover:bg-blue-700"
+            className="w-full sm:w-auto rounded-lg bg-blue-600 px-6 py-3 font-medium text-white transition hover:bg-blue-700 text-center"
           >
             Add Patient
           </button>
 
           <NavLink
             to="/doctor/appointments"
-            className="rounded-lg bg-slate-100 px-6 py-3 font-medium text-slate-700 transition hover:bg-slate-200"
+            className="w-full sm:w-auto rounded-lg bg-slate-100 px-6 py-3 font-medium text-slate-700 transition hover:bg-slate-200 text-center"
           >
             Cancel
           </NavLink>
