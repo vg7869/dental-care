@@ -1,6 +1,9 @@
-
 import React, { useState } from 'react'
 import { useClinic } from '../../context/ClinicContext'
+
+// 👉 Yahan doctor ka WhatsApp number daalo (country code ke saath, bina + ya space ke)
+// Example: India ka number 9876543210 hai to yaha '919876543210' likhna
+const DOCTOR_WHATSAPP_NUMBER = '919770979779'
 
 const Appointment = () => {
   const { addAppointment } = useClinic()
@@ -75,6 +78,25 @@ const Appointment = () => {
     return Object.keys(newErrors).length === 0
   }
 
+  // Booking complete hone ke baad, patient ke apne WhatsApp se
+  // (jis device/browser par form bhara gaya hai) doctor ke number par
+  // ek hi WhatsApp tab khulta hai, jisme patient ki details pehle se
+  // type hoti hain. User ko sirf "Send" dabana hota hai.
+  const sendWhatsAppMessages = (data) => {
+    const doctorMessage =
+      `Nayi appointment book hui hai:\n\n` +
+      `Patient Name: ${data.patientName}\n` +
+      `Mobile: ${data.mobile}\n` +
+      `Date: ${data.date}\n` +
+      `Time: ${data.time}\n` +
+      `Reason: ${data.reason}`
+
+    const doctorWhatsappURL =
+      `https://wa.me/${DOCTOR_WHATSAPP_NUMBER}?text=${encodeURIComponent(doctorMessage)}`
+
+    window.open(doctorWhatsappURL, '_blank')
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault()
 
@@ -87,6 +109,8 @@ const Appointment = () => {
     }
 
     addAppointment(formData)
+
+    sendWhatsAppMessages(formData)
 
     setFormData({
       patientName: '',
@@ -121,7 +145,7 @@ const Appointment = () => {
         {/* Success Message */}
         {success && (
           <div className="mb-6 rounded-lg border border-green-200 bg-green-50 px-5 py-4 text-center text-green-700">
-            Appointment booked successfully!
+            Appointment booked successfully! WhatsApp is opening to send your details to the doctor.
           </div>
         )}
 
@@ -284,7 +308,7 @@ const Appointment = () => {
               type="submit"
               className="w-full rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white transition hover:bg-blue-700"
             >
-              Book Appointment
+              Book Appointment By Whatsapp
             </button>
 
           </div>
@@ -298,4 +322,3 @@ const Appointment = () => {
 }
 
 export default Appointment
-
