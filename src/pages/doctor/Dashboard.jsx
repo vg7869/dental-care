@@ -1,42 +1,50 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom' // Ensure it's react-router-dom
-import { usePatients } from '../../context/PatientContext'
-import { useAppointments } from '../../context/AppointmentContext'
+import { NavLink } from 'react-router'
+import { useClinic } from '../../context/ClinicContext'
 
 // Doctor ki profile image import kar rahe hain
 import kpImg from '../../assets/kp.jpeg'
 
 const Dashboard = () => {
-  const { patients } = usePatients()
-  const { appointments } = useAppointments()
+  const {
+    patients,
+    appointments,
+  } = useClinic()
 
-  const today = new Date().toISOString().split('T')[0]
+  const today = new Date()
+    .toISOString()
+    .split('T')[0]
 
-  const pendingAppointments = appointments.filter(
-    (appointment) =>
-      appointment.status === 'Pending'
-  )
+  const pendingAppointments =
+    appointments.filter(
+      (appointment) =>
+        appointment.status === 'Pending'
+    )
 
-  const confirmedAppointments = appointments.filter(
-    (appointment) =>
-      appointment.status === 'Confirmed'
-  )
+  const confirmedAppointments =
+    appointments.filter(
+      (appointment) =>
+        appointment.status === 'Confirmed'
+    )
 
-  const completedAppointments = appointments.filter(
-    (appointment) =>
-      appointment.status === 'Completed'
-  )
+  const completedAppointments =
+    appointments.filter(
+      (appointment) =>
+        appointment.status === 'Completed'
+    )
 
-  const todayAppointments = appointments.filter(
-    (appointment) =>
-      appointment.date === today
-  )
+  const todayAppointments =
+    appointments.filter(
+      (appointment) =>
+        appointment.date === today
+    )
 
-  const upcomingFollowUps = patients.filter(
-    (patient) =>
-      patient.nextVisit &&
-      patient.nextVisit >= today
-  )
+  const upcomingFollowUps =
+    patients.filter(
+      (patient) =>
+        patient.nextVisit &&
+        patient.nextVisit >= today
+    )
 
   const stats = [
     {
@@ -94,23 +102,28 @@ const Dashboard = () => {
   return (
     <div className="p-8">
 
-      {/* Header Section (Updated with Name and Profile Image) */}
+      {/* Header Section */}
       <div className="mb-8 flex flex-col-reverse items-start justify-between gap-4 md:flex-row md:items-center">
 
         <div>
           <h1 className="text-3xl font-bold text-slate-800">
             Dashboard
           </h1>
+
           <p className="mt-1 text-slate-500">
-            Welcome back, <span className="font-semibold text-blue-600">Dr. Krishna Pal Gaur</span>. Here is your clinic overview.
+            Welcome back,{' '}
+            <span className="font-semibold text-blue-600">
+              Dr. Krishna Pal Gaur
+            </span>
+            . Here is your clinic overview.
           </p>
         </div>
 
-        {/* Profile Image - Top Right */}
+        {/* Profile Image */}
         <div className="shrink-0">
-          <img 
-            src={kpImg} 
-            alt="Dr. Krishna Pal Gaur" 
+          <img
+            src={kpImg}
+            alt="Dr. Krishna Pal Gaur"
             className="h-16 w-16 rounded-full border-2 border-white object-cover shadow-md"
           />
         </div>
@@ -205,6 +218,7 @@ const Dashboard = () => {
 
           {todayAppointments.length > 0 ? (
             todayAppointments
+              .slice()
               .sort((a, b) =>
                 a.time.localeCompare(b.time)
               )
@@ -374,6 +388,7 @@ const Dashboard = () => {
 
           {upcomingFollowUps.length > 0 ? (
             upcomingFollowUps
+              .slice()
               .sort((a, b) =>
                 a.nextVisit.localeCompare(b.nextVisit)
               )

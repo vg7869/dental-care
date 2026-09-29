@@ -1,22 +1,26 @@
 import React from 'react'
-import { NavLink, useParams } from 'react-router-dom'
-import { usePatients } from '../../context/PatientContext'
-import { useAppointments } from '../../context/AppointmentContext'
+import { NavLink, useParams } from 'react-router'
+import { useClinic } from '../../context/ClinicContext'
 
 const PatientDetails = () => {
   const { id } = useParams()
 
-  const { patients } = usePatients()
-  const { appointments } = useAppointments()
+  const {
+    patients,
+    getAppointmentsByPatientId,
+  } = useClinic()
 
   const patient = patients.find(
-    (patient) => patient.id.toString() === id
+    (patientItem) =>
+      patientItem.id.toString() === id
   )
 
-  const patientAppointment = appointments.find(
-    (appointment) =>
-      appointment.patientId?.toString() === id
-  )
+  const patientAppointments = patient
+    ? getAppointmentsByPatientId(patient.id)
+    : []
+
+  const patientAppointment =
+    patientAppointments[0]
 
   if (!patient) {
     return (

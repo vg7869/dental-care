@@ -1,15 +1,20 @@
+
 import React, { useEffect, useState } from 'react'
-import { NavLink, useNavigate, useParams } from 'react-router-dom'
-import { usePatients } from '../../context/PatientContext'
+import { NavLink, useNavigate, useParams } from 'react-router'
+import { useClinic } from '../../context/ClinicContext'
 
 const EditPatient = () => {
   const { id } = useParams()
   const navigate = useNavigate()
 
-  const { patients, updatePatient } = usePatients()
+  const {
+    patients,
+    updatePatient,
+  } = useClinic()
 
   const patient = patients.find(
-    (patient) => patient.id.toString() === id
+    (patientItem) =>
+      patientItem.id.toString() === id
   )
 
   const today = new Date()
@@ -46,13 +51,13 @@ const EditPatient = () => {
     return (
       <div className="p-4 md:p-8">
 
-        <div className="rounded-xl bg-white p-6 md:p-8 text-center shadow-sm">
+        <div className="rounded-xl bg-white p-6 text-center shadow-sm md:p-8">
 
-          <h1 className="text-xl md:text-2xl font-bold text-slate-800">
+          <h1 className="text-xl font-bold text-slate-800 md:text-2xl">
             Patient Not Found
           </h1>
 
-          <p className="mt-2 text-sm md:text-base text-slate-500">
+          <p className="mt-2 text-sm text-slate-500 md:text-base">
             The patient record does not exist.
           </p>
 
@@ -80,6 +85,7 @@ const EditPatient = () => {
     setErrors({
       ...errors,
       [name]: '',
+      general: '',
     })
   }
 
@@ -94,7 +100,9 @@ const EditPatient = () => {
     if (!formData.mobile.trim()) {
       newErrors.mobile =
         'Mobile number is required'
-    } else if (!/^[0-9]{10}$/.test(formData.mobile)) {
+    } else if (
+      !/^[0-9]{10}$/.test(formData.mobile)
+    ) {
       newErrors.mobile =
         'Enter a valid 10-digit mobile number'
     }
@@ -107,7 +115,9 @@ const EditPatient = () => {
     if (!formData.visitDate) {
       newErrors.visitDate =
         'Visit date is required'
-    } else if (formData.visitDate > today) {
+    } else if (
+      formData.visitDate > today
+    ) {
       newErrors.visitDate =
         'Visit date cannot be in the future'
     }
@@ -125,17 +135,6 @@ const EditPatient = () => {
         'Next visit cannot be in the past'
     }
 
-    const duplicatePatient = patients.find(
-      (patientItem) =>
-        patientItem.mobile === formData.mobile &&
-        patientItem.id !== patient.id
-    )
-
-    if (duplicatePatient) {
-      newErrors.mobile =
-        'A patient with this mobile number already exists'
-    }
-
     setErrors(newErrors)
 
     return Object.keys(newErrors).length === 0
@@ -150,10 +149,18 @@ const EditPatient = () => {
       return
     }
 
-    updatePatient(
+    const result = updatePatient(
       patient.id,
       formData
     )
+
+    if (!result.success) {
+      setErrors({
+        mobile: result.message,
+      })
+
+      return
+    }
 
     navigate(
       `/doctor/patients/${patient.id}`
@@ -166,7 +173,7 @@ const EditPatient = () => {
       {/* Header */}
       <div className="mb-6 md:mb-8">
 
-        <h1 className="text-2xl md:text-3xl font-bold text-slate-800">
+        <h1 className="text-2xl font-bold text-slate-800 md:text-3xl">
           Edit Patient
         </h1>
 
@@ -179,10 +186,10 @@ const EditPatient = () => {
       {/* Form */}
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-4xl rounded-xl bg-white p-5 md:p-8 shadow-sm"
+        className="w-full max-w-4xl rounded-xl bg-white p-5 shadow-sm md:p-8"
       >
 
-        <div className="grid gap-4 md:gap-6 md:grid-cols-2">
+        <div className="grid gap-4 md:grid-cols-2 md:gap-6">
 
           {/* Patient Name */}
           <div>
@@ -374,18 +381,18 @@ const EditPatient = () => {
         </div>
 
         {/* Buttons */}
-        <div className="mt-6 md:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4">
+        <div className="mt-6 flex flex-col gap-3 md:mt-8 sm:flex-row sm:gap-4">
 
           <button
             type="submit"
-            className="w-full sm:w-auto rounded-lg bg-blue-600 px-6 py-3 font-medium text-white transition hover:bg-blue-700 text-center text-sm"
+            className="w-full rounded-lg bg-blue-600 px-6 py-3 text-center text-sm font-medium text-white transition hover:bg-blue-700 sm:w-auto"
           >
             Update Patient
           </button>
 
           <NavLink
             to={`/doctor/patients/${patient.id}`}
-            className="w-full sm:w-auto rounded-lg bg-slate-100 px-6 py-3 font-medium text-slate-700 transition hover:bg-slate-200 text-center text-sm"
+            className="w-full rounded-lg bg-slate-100 px-6 py-3 text-center text-sm font-medium text-slate-700 transition hover:bg-slate-200 sm:w-auto"
           >
             Cancel
           </NavLink>
@@ -393,9 +400,9 @@ const EditPatient = () => {
         </div>
 
       </form>
-
     </div>
   )
 }
 
 export default EditPatient
+
